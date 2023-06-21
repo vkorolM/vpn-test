@@ -3,6 +3,7 @@ package com.mozilla.core;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.qameta.allure.Step;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -15,6 +16,7 @@ public class BaseTest {
 		private static String appiumUrl = "http://127.0.0.1:4723";
 
 		@BeforeClass
+		@Step("Setup driver")
 		protected void setUp() throws Exception {
 				DesiredCapabilities capabilities = new DesiredCapabilities();
 				capabilities.setCapability("platformName", "Android");
@@ -38,5 +40,13 @@ public class BaseTest {
 		@AfterClass
 		protected void tearDown() throws Exception {
 				driver.quit();
+		}
+
+		public AppiumDriver getDriver() {
+				return driver;
+		}
+
+		public void setDriver(AppiumDriver driver) {
+				this.driver = driver;
 		}
 }

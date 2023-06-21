@@ -1,9 +1,13 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite1" verbose="1" >
-    <test name="Poc" >
+<suite name="Demo" verbose="1" >
+    <listeners>
+        <listener class-name="com.mozilla.tools.Listener"/>
+    </listeners>
+    <test name="Sample Test" >
         <classes>
             <class name="com.mozilla.tests.POCTests" />
         </classes>
     </test>
 </suite>
+
