@@ -1,6 +1,7 @@
 .gradle/
 .DS_Store
 .idea/
+allure-results/
 
 
 # Compiled class file
