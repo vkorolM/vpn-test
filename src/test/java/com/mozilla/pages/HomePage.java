@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidBy;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,6 +19,7 @@ public class HomePage extends BasePage {
 
 		@Step("Verify home page is open")
 		public Boolean verifySignUpButtonPresent() {
+				Allure.step("Verify if home page is open");
 				return waitForElementPresent(signUpButton, "Element not found", 10) != null;
 		}
 

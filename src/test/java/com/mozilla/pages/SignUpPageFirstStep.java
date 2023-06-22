@@ -2,6 +2,7 @@ package com.mozilla.pages;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.testng.log4testng.Logger;
@@ -22,15 +23,17 @@ public class SignUpPageFirstStep extends BasePage {
 
 		@Step("Verify sign up page is open")
 		public boolean verifyPageIsOpen() {
+				Allure.step("Verify if sign up page is open");
 				return waitForElementPresent(pageFlag, "Sign up page didn't open", 10) != null;
 		}
 
-//		@Step
-//		public SignUpPageFirstStep fillEmailField() {
-//				emailField.clear();
-//				emailField.sendKeys("testEmail1@mozilla.com");
-//				return this;
-//		}
+		@Step
+		public SignUpPageFirstStep fillEmailField() {
+				Allure.step("Fill email field");
+				emailField.clear();
+				emailField.sendKeys("testEmail1@mozilla.com");
+				return this;
+		}
 
 		@Step("Tap on Continue button")
 		public SignUpPageFirstStep tapOnContinueButton() {
