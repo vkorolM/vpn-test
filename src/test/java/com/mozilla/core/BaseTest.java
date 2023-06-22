@@ -1,8 +1,12 @@
 package com.mozilla.core;
 
+import com.mozilla.config.ConfigReader;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.ios.options.XCUITestOptions;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
@@ -13,32 +17,39 @@ import java.net.URL;
 public class BaseTest {
 
 		protected AppiumDriver driver;
-		private static String appiumUrl = "http://127.0.0.1:4723";
+		private static String appiumUrl = ConfigReader.testConfig.remoteURL();
 
 		@BeforeClass
 		@Step("Setup driver")
 		protected void setUp() throws Exception {
-				DesiredCapabilities capabilities = new DesiredCapabilities();
-				capabilities.setCapability("platformName", "Android");
-				capabilities.setCapability("deviceName", "appium");
-				capabilities.setCapability("platformVersion", "13");
-				capabilities.setCapability("automationName", "uiautomator2");
-				capabilities.setCapability("printPageSourceOnFindFailure", "true");
-				capabilities.setCapability("app", "/Users/vladyslavkorol/Developement/Mozilla/vpn-automation/mozillavpn-x86-release.apk");
+				Allure.step("Setup driver");
+
+				XCUITestOptions xcuiTestOptions = new XCUITestOptions()
+						.setAutomationName("XCUITest")
+						.setDeviceName(ConfigReader.deviceConfig.deviceName())
+						.setPlatformVersion(ConfigReader.deviceConfig.platformVersion())
+						.setPlatformName(ConfigReader.deviceConfig.platformName())
+						.setApp(ConfigReader.deviceConfig.app())
+						.setUdid(ConfigReader.deviceConfig.udid());
 
 				UiAutomator2Options uiAutomator2Options = new UiAutomator2Options()
 						.setAutomationName("UiAutomator2")
-						.setDeviceName("Pixel3")
-						.setPlatformVersion("11")
-						.setPlatformName("Android")
+						.setDeviceName(ConfigReader.deviceConfig.deviceName())
+						.setPlatformVersion(ConfigReader.deviceConfig.platformVersion())
+						.setPlatformName(ConfigReader.deviceConfig.platformName())
 						.setPrintPageSourceOnFindFailure(true)
-						.setApp("/Users/vladyslavkorol/Developement/Mozilla/vpn-automation/vpn/mozillavpn-x86-release.apk");
+						.setApp(ConfigReader.deviceConfig.app());
 
-				driver = new AndroidDriver(new URL(appiumUrl), uiAutomator2Options);
+				if (ConfigReader.testConfig.PLATFORM().equals("ANDROID")) {
+						driver = new AndroidDriver(new URL(appiumUrl), uiAutomator2Options);
+				} else if (ConfigReader.testConfig.PLATFORM().equals("IOS")) {
+						driver = new IOSDriver(new URL(appiumUrl), xcuiTestOptions);
+				}
 		}
 
 		@AfterClass
 		protected void tearDown() throws Exception {
+				Allure.step("Quit driver");
 				driver.quit();
 		}
 
