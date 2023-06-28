@@ -2,6 +2,7 @@ package com.mozilla.pages;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
@@ -19,6 +20,7 @@ public class SignUpPageFirstStep extends BasePage {
 		WebElement emailField;
 
 		@AndroidFindBy(xpath = "(//android.view.View.VirtualChild[@content-desc=\"Continue \"])[2]")
+		@iOSXCUITFindBy(xpath = "test")
 		WebElement continueButton;
 
 		@Step("Verify sign up page is open")

@@ -8,6 +8,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage {
 		public HomePage(AppiumDriver driver) {
@@ -15,6 +16,7 @@ public class HomePage extends BasePage {
 		}
 
 		@AndroidFindBy(xpath = "(//android.view.View.VirtualChild[@content-desc=\"Sign up \"])[2]")
+		@FindBy()
 		public WebElement signUpButton;
 
 		@Step("Verify home page is open")
